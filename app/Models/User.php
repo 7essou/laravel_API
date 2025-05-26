@@ -3,23 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable; // <-- important
+use Illuminate\Notifications\Notifiable;
+class User extends Authenticatable
 {
+    use Notifiable;
+
     protected $fillable = [
-        'id',
         'first_name',
         'last_name',
         'phone',
         'email',
         'password',
-        'name_on_card',
-        'card_number',
-        'expiry_date',
+        'nameOnCard',
+        'cardNumber',
+        'expiryDate',
         'cvv',
+        'paypal',
         'zip',
         'country',
-        'billing_same',
-        'payment_method',
+        'billingSame',
+        'paymentMethod',
     ];
 }
