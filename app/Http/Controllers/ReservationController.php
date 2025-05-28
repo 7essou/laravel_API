@@ -12,7 +12,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservation = Reservation::all();
+        $reservation = Reservation::orderBy('id','desc')->get();
         return  response()->json($reservation,200);
     }
 

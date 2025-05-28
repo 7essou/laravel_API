@@ -56,7 +56,7 @@ class ArtistController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {   
+    { 
         $artist=Artist::find($id);
         $NamePrImg='';
         $NameDescImg='';
@@ -65,21 +65,20 @@ class ArtistController extends Controller
             $NamePrImg=time().'.'.$request->file('profilImg')->extension();
             $request->file('profilImg')->storeAs('images',$NamePrImg);
             $artistData['Profil_img']=asset('images/'.$NamePrImg);
-        }
-        else{
-            $artistData['Profil_img']=$artist->Profil_img;
+            $artistData['desc_img']=$artist->desc_img;
+            $artist->update($artistData);
+            return response()->json("updated",200);
         }
         if($request->hasFile('descImg')){
         $NameDescImg=time().'.'.$request->file('descImg')->extension();
         $request->file('descImg')->storeAs('images',$NameDescImg);
         $artistData['desc_img']=asset('images/'.$NameDescImg);
-        }
-        else{
-            $artistData['desc_img']=$artist->desc_img;
-        }
-       
+        $artistData['Profil_img']=$artist->Profil_img;
         $artist->update($artistData);
         return response()->json("updated",200);
+        }
+       
+       
     }
 
     /**
