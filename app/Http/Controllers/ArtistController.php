@@ -69,13 +69,19 @@ class ArtistController extends Controller
             $artist->update($artistData);
             return response()->json("updated",200);
         }
-        if($request->hasFile('descImg')){
+        else if($request->hasFile('descImg')){
         $NameDescImg=time().'.'.$request->file('descImg')->extension();
         $request->file('descImg')->storeAs('images',$NameDescImg);
         $artistData['desc_img']=asset('images/'.$NameDescImg);
         $artistData['Profil_img']=$artist->Profil_img;
         $artist->update($artistData);
         return response()->json("updated",200);
+        }
+        else{
+            $artistData['desc_img']=$artist->desc_img;
+            $artistData['Profil_img']=$artist->Profil_img;
+            $artist->update($artistData);
+            return response()->json("updated",200);  
         }
        
        
